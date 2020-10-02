@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "B8v/88/5YxMiErz9n/YQvnzAw5xFY7gWLEyo5xaNoRoEy8iS8UzS35lRQgUNPXdYCi5nBs7Zgj/sG1rvFZuZgw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dmtin\\Dev\\MoonRuneDemolisher\\MoonRuneDemolisher\\MoonRuneDemolisher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.api.gax\\3.0.0\\google.api.gax.3.0.0.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.api.gax.rest\\3.0.0\\google.api.gax.rest.3.0.0.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.apis\\1.44.1\\google.apis.1.44.1.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.apis.auth\\1.44.1\\google.apis.auth.1.44.1.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.apis.core\\1.44.1\\google.apis.core.1.44.1.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.apis.translate.v2\\1.42.0.875\\google.apis.translate.v2.1.42.0.875.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\google.cloud.translation.v2\\2.0.0\\google.cloud.translation.v2.2.0.0.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\dmtin\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
