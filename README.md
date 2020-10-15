@@ -8,8 +8,8 @@ Auto-translates specific Dark Souls game files with google translate.
 * Does not translate region names in MSB files. Those name are sensitive as events reference regions by name.
 * In order to use this program you will need a google translate api key.
 
-## Transalted Files
-* If you just want the translated vanilla files just download TranslatedSouls.zip
+## Translated Files
+* If you just want the translated vanilla files download TranslatedSouls.zip
 
 ## Special Thanks
 * **TKGP** [SoulsFormats library](https://github.com/JKAnderson/SoulsFormats).
