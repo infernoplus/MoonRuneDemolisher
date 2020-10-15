@@ -6,6 +6,7 @@ using Google.Cloud.Translation.V2;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Responses;
 using System.ComponentModel.Design;
+using System.Xml.Serialization;
 
 namespace MoonRuneDemolisher
 {
@@ -13,9 +14,11 @@ namespace MoonRuneDemolisher
     {
         static void Main(string[] args)
         {
+            if(args.Length < 1) { help();  return; }
             switch (args[0])
             {
                 case "params": { translateParams(args[1], args[2]); break; }
+                case "paramdefs": { translateParamDefs(args[1]); break; }
                 case "msbs": { translateMsbs(args[1]); break; }
                 default: { help(); break; }
             }
@@ -343,12 +346,67 @@ namespace MoonRuneDemolisher
             Console.WriteLine("\n\n Done!");
         }
 
+        static void translateParamDefs(string a)
+        {
+            string paramDefDir = a.EndsWith("\\") ? a.Substring(a.Length - 1, 1) : a;
+            string[] paramDefFileList = Directory.GetFiles(paramDefDir);
+            List<string> paramDefFileNameList = new List<string>();
+            List<PARAMDEF> paramDefs = new List<PARAMDEF>();
+
+            Console.WriteLine("### " + paramDefDir);
+
+            for (int i = 0; i < paramDefFileList.Length; i++)
+            {
+                string fn = paramDefFileList[i].Substring(paramDefDir.Length + 1, paramDefFileList[i].Length - (paramDefDir.Length + 1));
+                paramDefFileNameList.Add(fn);
+                paramDefs.Add(PARAMDEF.Read(File.ReadAllBytes(paramDefFileList[i])));
+            }
+
+            TranslationClient client = TranslationClient.Create(GoogleCredential.FromFile("C:\\Users\\dmtin\\google-translate-api-key.txt"));
+
+            for (int i = 0; i < paramDefs.Count; i++)
+            {
+                PARAMDEF pd = paramDefs[i];
+                Console.WriteLine("\n\n\n\n==================" + pd.ParamType + "==================");
+
+                for (int j=0; j<pd.Fields.Count;j++)
+                {
+                    PARAMDEF.Field field = pd.Fields[j];
+                    try
+                    {
+                        TranslationResult responseA = client.TranslateText(field.DisplayName, LanguageCodes.English, LanguageCodes.Japanese); // Translate request
+                        if (responseA != null && responseA.TranslatedText != null && responseA.TranslatedText.Trim().Length > 0)
+                        {
+                            field.DisplayName = responseA.TranslatedText;
+                        }
+
+                        TranslationResult responseB = client.TranslateText(field.Description, LanguageCodes.English, LanguageCodes.Japanese); // Translate request
+                        if (responseB != null && responseB.TranslatedText != null && responseB.TranslatedText.Trim().Length > 0)
+                        {
+                            field.Description = responseB.TranslatedText;
+                        }
+                    }
+                    catch (Exception ex) { Console.WriteLine("EXCEPTION :: " + ex.Message); }
+                    Console.WriteLine(field.DisplayName + ":: " + field.Description);
+                }
+            }
+
+            Directory.CreateDirectory(paramDefDir + "\\translated\\");
+            for (int i = 0; i < paramDefs.Count; i++)
+            {
+                string outPath = paramDefDir + "\\translated\\" + paramDefFileNameList[i];
+                byte[] outData = paramDefs[i].Write();
+                File.WriteAllBytes(outPath, outData);
+            }
+        }
+
         static void help()
         {
             Console.WriteLine("MoonRuneDemolisher - By Inferno - Uses SoulsFormat by TKGP");
             Console.WriteLine("Commands:");
             Console.WriteLine("  params <path to unpacked param files> <path to unpacked paramdef files>");
             Console.WriteLine("  msbs <path mapstudio folder with all the msb files>");
+            Console.WriteLine("  paramdefs <path to unpacked paramdef files>");
         }
     }
 }
